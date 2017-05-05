@@ -1,0 +1,14 @@
+
+table, th , td{
+    border-collapse: collapse;
+    border: 1px solid grey;
+    padding: 5px;
+}
+.setHead{
+	color: brown;
+	background-color: thistle;
+}
+
+h3{
+	color: indianred;
+}

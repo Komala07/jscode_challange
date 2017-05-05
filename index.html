@@ -1,0 +1,35 @@
+<html>
+   <head>
+      <title></title>
+      
+      <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+      <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/css/bootstrap.no-icons.min.css" rel="stylesheet">
+      <link href="http://netdna.bootstrapcdn.com/font-awesome/2.0/css/font-awesome.css" rel="stylesheet">
+      <script src = "script.js"></script>
+      <link rel = "stylesheet" type = "text/css" href = "style.css" />
+      
+   </head>
+   <body>
+      <center><h3>Application to Display Data</h3></center>
+      <div ng-app = "myApp" ng-controller = "dataController">
+         <table>
+           <thead>
+              <tr>
+                 <th class="setHead" ng-click="sort_table('userId')">UserId&nbsp;&nbsp;<i ng-class="getClass('userId')"></i></th>
+                 <th class="setHead" ng-click="sort_table('id')">ID&nbsp;&nbsp;<i ng-class="getClass('id')"></i></th>
+                 <th class="setHead" ng-click="sort_table('title')">Title&nbsp;&nbsp;<i ng-class="getClass('title')"></i></th>
+                 <th class="setHead" ng-click="sort_table('body')">Body&nbsp;&nbsp;<i ng-class="getClass('body')"></i></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat = "data in tableData | orderBy:sortingOrder:reverse">
+                 <td>{{ data.userId }}</td>
+                 <td>{{ data.id }}</td>
+                 <td>{{ data.title }}</td>
+                 <td>{{ data.body }}</td>
+              </tr>
+            </tbody>
+         </table>
+      </div>
+   </body>
+</html>
