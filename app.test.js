@@ -12,18 +12,43 @@ describe('Unit Testing: Display data from Json', function () {
       $controllerConstructor('dataController', { $scope: scope, $http: httpService});
     }));
 
-    it('Should make a call to server to fetch data', function(){
+    it('Should make a call to server to and fetch data on success ', function() {
       var respData = {data:{id:1}};
       var responseObj = { 
-        then: function(callback) {
-          callback(respData);
-        }
+        then: function (success, error) {
+          if (respData.data) {
+            success(respData);
+          } else {
+            error(respData);
+          }
+        }   
       };
 
       var httpwrapStub = sinon.stub(httpService, 'get');
       httpwrapStub.returns(responseObj);
       scope.initialise();
-      expect(scope.tableData.id).to.equal(1);
+      expect(scope.tableData).to.equal(respData.data);
+      expect(httpwrapStub.calledOnce).to.be.ok;
+      httpwrapStub.restore();
+    });
+    it('Should throw an error, if server failed to respond ', function() {
+      var respData = {};
+      var responseObj = { 
+        then: function (success, error) {
+          if (respData.data) {
+            success(respData);
+          } else {
+            error(respData);
+          }
+        }   
+      };
+
+      var httpwrapStub = sinon.stub(httpService, 'get');
+      httpwrapStub.returns(responseObj);
+      scope.initialise();
+      expect(scope.tableData).to.equal(undefined);
+      expect(httpwrapStub.calledOnce).to.be.ok;
+      httpwrapStub.restore();
     });
 
 
